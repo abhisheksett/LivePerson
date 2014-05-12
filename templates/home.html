@@ -1,0 +1,15 @@
+
+
+<div ng-controller="selectController">
+<div class="container"  ng-hide="!isShowing">
+  		<div id="shareOptions" class="shareOptions">
+  			<a href="#facebook"><img id="facebook" src="images/facebook.png" style="cursor:pointer"></a>
+  			<a href="#twitter"><img id="twitter" src="images/twitter.png" style="cursor:pointer"></a>
+  		</div>
+  		<div class="downarrow"></div>
+  		</div>
+  		<div id="share" class="share" ng-controller="shareController" ng-click="toggleVisibility()"></div>
+</div>
+<script type="text/javascript">
+  $.getScript('js/homeScript.js');
+</script>

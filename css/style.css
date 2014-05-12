@@ -1,0 +1,45 @@
+
+ body { 
+ 	-webkit-font-smoothing: antialiased;
+ 	width: 100%; 
+ 	height: 100%;
+ 	overflow: hidden;
+ 	margin: 0; 
+ 	padding: 0;
+ 	background: #4f3b5b;
+ 	background: -moz-radial-gradient(center, ellipse cover,  #4f3b5b 0%, #231733 100%);
+ 	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#4f3b5b), color-stop(100%,#231733));
+ 	background: -webkit-radial-gradient(center, ellipse cover,  #4f3b5b 0%,#231733 100%);
+ 	background: -o-radial-gradient(center, ellipse cover,  #4f3b5b 0%,#231733 100%);
+ 	background: -ms-radial-gradient(center, ellipse cover,  #4f3b5b 0%,#231733 100%);
+ 	background: radial-gradient(ellipse at center,  #4f3b5b 0%,#231733 100%);
+ 	padding: 10px;
+ }
+
+.shareOptions{
+	position: absolute;
+	top: 34%;
+	left: 43%;
+	background-color: white;
+}
+
+.downarrow{
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 10px solid white;
+	position: absolute;
+	top: 43%;
+	left: 46.5%;
+}
+
+.share{
+	position: absolute;
+	top: 45%;
+	left: 45%;
+	width: 64px;
+	height: 60px;
+	background: url("../images/share.png");
+	cursor: pointer;
+}

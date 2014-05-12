@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">  
+<html>  
+<head>  
+<script type="text/javascript">  
+  function checkAvailability() {  
+    lpc.chatAvailability( );  
+  }  
+  function myOnAvailability(availObj){  
+    if( availObj.availability == true ){  
+      alert( 'we can start a chat' );  
+    } else {  
+      alert( 'account is offline' );  
+    }  
+  }  
+  function sendText() {  
+    var textObj = document.getElementById('chatLine');  
+    if(textObj.value!=''){  
+      lpc.addLine(textObj.value);  
+      addChatText(lpc.getVisitorName(), textObj.value);  
+      textObj.value='';  
+    }  
+      
+    return true;  
+  }  
+  function myOnLine ( line ) {  
+    addChatText(line.by, line.text);  
+  }  
+  function myOnError(errObj){  
+    console.log(errObj.text);
+    alert('Error occured. ' + errObj.text);  
+  }  
+  function addChatText(by,text){  
+    var ca = document.getElementById('chatArea');  
+    var p = document.createElement( "div" );  
+    if(by!=null){  
+      var span = document.createElement( "span" );  
+      span.innerHTML = by + ': ';  
+      p.appendChild(span);  
+    }  
+    
+    var htmlText = document.createElement ("span");  
+    htmlText.innerHTML = text;  
+    p.appendChild (htmlText);  
+    ca.appendChild(p);  
+    ca.scrollTop = 50000;  
+  }  
+  var lpChatConfig = {  
+    apiKey : 'e1737910ab044716bd2a64451b1bc44e',  
+    jsApiSrcDomain : 'dev.liveperson.net',  
+    lpNumber : '9900',  
+    onLoad : function() { 
+
+      window.lpc= new lpChat();  
+      console.log("loaded:"+lpc);
+    },  
+    onLine : myOnLine,  
+    onError : myOnError,  
+    onAvailability: myOnAvailability  
+  };  
+  lpChatConfig.lpAddScript = function(src, ignore) {  
+    var c = lpChatConfig;  
+    if(typeof(c.lpProtocol)=='undefined'){  
+        c.lpProtocol = "https";  
+    }  
+    if (typeof(src) == 'undefined' || typeof(src) == 'object') {  
+        src = c.lpChatSrc ? c.lpChatSrc : '/hcp/html/lpChatAPI.js';  
+    }  
+    if (src.indexOf('http') != 0) {  
+        src = c.lpProtocol + "://" + c.jsApiSrcDomain + src + '?site=' + c.lpNumber;  
+    } else {  
+        if (src.indexOf('site=') < 0) {  
+            if (src.indexOf('?') < 0) {  
+                src = src + '?';  
+            } else {  
+                src = src + '&';  
+                src = src + 'site=' + c.lpNumber;  
+            }  
+        }  
+    }  
+      
+    var s = document.createElement('script');  
+    s.setAttribute('type', 'text/javascript');  
+    s.setAttribute('charset', 'iso-8859-1');  
+    s.setAttribute('src', src);  
+    document.getElementsByTagName('head').item(0).appendChild(s);  
+  }  
+  if (window.attachEvent) {  
+    window.attachEvent('onload', lpChatConfig.lpAddScript);  
+  }else{  
+    window.addEventListener('load', lpChatConfig.lpAddScript, false);  
+  }  
+</script>  
+</head>  
+<body>  
+<button onclick='lpc.chatAvailability()'>Check Availability</button>  
+<button onclick='lpc.requestChat();'>Start Chat</button>  
+<button onclick='lpc.endChat()'>End Chat</button>  
+<div id='chatArea' style='border:1px solid #aaa; width:500px; height:400px; overflow:auto;'></div>  
+<input id='chatLine' type='text' value='write your text here...'>  
+<button onclick='sendText()'>Send</button>  
+</body>  
+</html>  
